@@ -1,7 +1,5 @@
 package Carpeta;
 
-import java.awt.*;
-import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.BlockingQueue;
 
 public class EstacionDeTrabajo extends Thread{
@@ -25,7 +23,7 @@ public class EstacionDeTrabajo extends Thread{
         }
     }
 
-    private Component producirComponente(){
+    private Componente producirComponente(){
         return new Componente();
     }
 }

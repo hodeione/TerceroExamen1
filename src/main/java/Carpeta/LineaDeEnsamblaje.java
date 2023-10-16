@@ -1,4 +1,5 @@
 package Carpeta;
+import javax.swing.*;
 import java.util.concurrent.BlockingQueue;
 public class LineaDeEnsamblaje extends Thread{
     private BlockingQueue<Componente> buffer;
@@ -21,10 +22,13 @@ public class LineaDeEnsamblaje extends Thread{
         }
     }
 
-    private void ensamblarComponente(){
+    private void ensamblarComponente(Componente componente){
 
     }
     private void visualizar(int size){
-        System.out.println("Componente ensamblado. Quedan " + size + " componentes por ensamblar");
+        SwingUtilities.invokeLater(()->
+        {
+            System.out.println("Componente ensamblado. Quedan " + size + " componentes por ensamblar");
+        });
     }
 }
