@@ -16,7 +16,7 @@ public class EstacionDeTrabajo extends Thread{
                 Componente componente = producirComponente();
                 buffer.put(componente);
                 sleep(500);
-              //  System.out.println("Componente " + componente.getId() + " procesado");
+              System.out.println("Componente " + componente.getId() + " procesado");
             }catch(InterruptedException e){
                 e.printStackTrace();
             }

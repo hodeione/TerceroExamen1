@@ -8,7 +8,77 @@ import static java.lang.Thread.sleep;
 
 public class Lanzador {
     public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame("Simulación de Bolas");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+            BlockingQueue<Componente> buffer = new ArrayBlockingQueue<>(10);
+
+            EstacionDeTrabajo estacion1 = new EstacionDeTrabajo(buffer);
+            EstacionDeTrabajo estacion2 = new EstacionDeTrabajo(buffer);
+            LineaDeEnsamblaje lineaDeEnsamblaje = new LineaDeEnsamblaje(buffer);
+
+            Tablero tablero = new Tablero(buffer);
+            frame.add(tablero);
+            frame.pack();
+            frame.setVisible(true);
+
+            estacion1.start();
+            estacion2.start();
+            lineaDeEnsamblaje.start();
+            tablero.iniciarSimulacion();
+        });
+    }
+   /* public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame("Simulación de Bolas");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+            BlockingQueue<Componente> buffer = new ArrayBlockingQueue<>(10);
+
+            EstacionDeTrabajo estacion1 = new EstacionDeTrabajo(buffer);
+            EstacionDeTrabajo estacion2 = new EstacionDeTrabajo(buffer);
+            LineaDeEnsamblaje lineaDeEnsamblaje = new LineaDeEnsamblaje(buffer);
+
+            Tablero tablero = new Tablero(buffer);
+            frame.add(tablero);
+            frame.pack();
+            frame.setVisible(true);
+
+            estacion1.start();
+            estacion2.start();
+            lineaDeEnsamblaje.start();
+            tablero.iniciarSimulacion();
+        });
+    }*/
+    /*public static void main(String[] args) {
         BlockingQueue<Componente> buffer = new ArrayBlockingQueue<>(10);
+
+        SwingUtilities.invokeLater(()->{
+            JFrame frame = new JFrame("Simulacion de la produccion y ensamblaje");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+            Tablero tablero = new Tablero(buffer);
+            frame.add(tablero);
+            frame.pack();
+            frame.setVisible(true);
+
+            new Thread(() -> {
+                while (true) {
+                    try {
+                        Thread.sleep(100);
+                        SwingUtilities.invokeLater(() -> {
+                            synchronized (tablero) {
+                                tablero.repaint();
+                            }
+                        });
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        });
 
         EstacionDeTrabajo estacion1 = new EstacionDeTrabajo(buffer);
         EstacionDeTrabajo estacion2 = new EstacionDeTrabajo(buffer);
@@ -27,31 +97,26 @@ public class Lanzador {
             estacion2.start();
             lineaDeEnsamblaje.start();
 
-            new Thread(()->{
-                while(true){
-                    try{
+            /*new Thread(() -> {
+                while (true) {
+                    try {
                         sleep(100);
-                        SwingUtilities.invokeLater(()->
-                        {
+                        SwingUtilities.invokeLater(() -> {
                             bufferPanel.removeAll();
-                            for(int i = 0; i < buffer.size(); i++){
+                            for (int i = 0; i < buffer.size(); i++) {
                                 bufferPanel.add(new Componente());
                             }
                             bufferPanel.revalidate();
                             bufferPanel.repaint();
                         });
-                        try {
-                            sleep(500);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }catch(InterruptedException e){
+                        sleep(500);
+                    } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
             }).start();
             frame.setVisible(true);
             });
-        };
+        };*/
 
 }

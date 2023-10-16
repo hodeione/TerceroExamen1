@@ -14,8 +14,8 @@ public class LineaDeEnsamblaje extends Thread{
             try {
                 Componente componente = buffer.take();
                 ensamblarComponente(componente);
-                sleep(300);
-                visualizar(buffer.size());
+                sleep(1000);
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -23,7 +23,8 @@ public class LineaDeEnsamblaje extends Thread{
     }
 
     private void ensamblarComponente(Componente componente){
-
+        visualizar(buffer.size());
+        System.out.println("Ensamblado componente " + componente.getId());
     }
     private void visualizar(int size){
         SwingUtilities.invokeLater(()->
